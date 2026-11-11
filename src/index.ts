@@ -2,6 +2,8 @@ import type { Application, Request, Response } from "express";
 import express from "express";
 import cors from "cors";
 import { prisma } from "./config/prisma.js"
+import patientRouter from "./routes/patient.routes.js";
+import doctorRouter from "./routes/doctor.routes.js";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000; 
@@ -33,6 +35,10 @@ app.get("/api/specialties", async (req: Request, res: Response) => {
         });
     }
 });
+
+app.use("/api", patientRouter);
+app.use("/api",doctorRouter);
+
 
 app.listen(PORT, () => {
     console.log(`servidor corriendo en: http://localhost:${PORT}`);
