@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Paciente { 
+  id    Int     @id @default(autoincrement()) 
+  nombre String 
+  apellido String
+  correo String  
+  carnet_identidad String? @unique
+  telefono String?
+  fecha_nacimiento DateTime @db.Date 
+  citas Cita[]
+  @@map("pacientes")
+} 
+
+model Especialidad { 
+  id        Int     @id @default(autoincrement()) 
+  nombre     String @unique
+  descripcion   String
+  medicos Medico[]
+  @@map("especialidades")
+} 
+
+model Medico { 
+  id    Int     @id @default(autoincrement()) 
+  nombre  String 
+  telefono String
+  especialidad_id Int 
+  especialidad Especialidad @relation(fields: [especialidad_id], references: [id])
+  citas Cita[]
+  @@map("medicos")
+} 
+
+model Cita { 
+  id        Int     @id @default(autoincrement()) 
+  medico_id Int  
+  medico Medico @relation(fields: [medico_id], references: [id])
+  paciente_id Int 
+  paciente Paciente @relation(fields: [paciente_id], references: [id])
+  fecha_hora DateTime 
+  estado    EstadoCita @default(PROGRAMADA)
+  @@map("citas")
+} 
+
+//restringe los valores permitidos para que el usuario no inserte cualquier texto como estado
+enum EstadoCita {
+  PROGRAMADA
+  COMPLETADA
+  CANCELADA
+}
+
+enum Role {
+  RECEPCIONISTA
+  MEDICO
+  GERENCIA
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role
+
+  @@map("users")
+}
