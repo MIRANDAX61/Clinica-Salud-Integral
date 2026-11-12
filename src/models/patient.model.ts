@@ -10,7 +10,21 @@ export const PatientModel = {
 
     async findById(id: number) {
         return await prisma.paciente.findUnique({
-            where: { id }
+            where: { id },
+            include: {
+            citas: {
+                include: {
+                    medico: {
+                        include: {
+                        especialidad: true
+                        }
+                    }
+                },
+                orderBy: {
+                fecha_hora: "desc"
+                }
+            }
+            }
         });
     },
 

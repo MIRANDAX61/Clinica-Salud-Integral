@@ -3,6 +3,9 @@ import { prisma } from "../config/prisma";
 import { PatientModel } from "../models/patient.model"
 
 export async function getPatients(req: Request, res: Response) {
+    // #swagger.tags = ['Pacientes']
+    // #swagger.summary = 'Consultar todos los pacientes'
+    // #swagger.security = [{ "bearerAuth": [] }]
     try {
         const patients = await PatientModel.findAll();
         res.status(200).json({
@@ -17,6 +20,9 @@ export async function getPatients(req: Request, res: Response) {
 }
 
 export async function getPatientById(req: Request, res: Response) {
+    // #swagger.tags = ['Pacientes']
+    // #swagger.summary = 'Consultar un paciente por su ID'
+    // #swagger.security = [{ "bearerAuth": [] }]
     const id = Number(req.params.id);
 
     if (!Number.isSafeInteger(id) || id<=0) {
@@ -49,6 +55,9 @@ export async function getPatientById(req: Request, res: Response) {
 }
 
 export async function createPatient(req: Request, res: Response) {
+    // #swagger.tags = ['Pacientes']
+    // #swagger.summary = 'Crear un Paciente'
+    // #swagger.security = [{ "bearerAuth": [] }]
     try { 
         const newPatient = await PatientModel.create(req.body);
 
