@@ -4,6 +4,10 @@ import cors from "cors";
 import { prisma } from "./config/prisma.js"
 import patientRouter from "./routes/patient.routes.js";
 import doctorRouter from "./routes/doctor.routes.js";
+import { authorize } from "./middlewares/authorize.middleware.js";
+import { verifyToken } from "./middlewares/auth.middleware.js";
+import authRouter from "./routes/auth.routes.js";
+import swaggerRouter from "./routes/swagger.routes.js"
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000; 
@@ -20,7 +24,12 @@ app.get("/", (req: Request, res: Response) => {
     });
 });
 
-app.get("/api/specialties", async (req: Request, res: Response) => {
+app.get(
+    "/api/specialties",
+    verifyToken,
+    authorize("RECEPCIONISTA"),
+    async (req: Request, res: Response) => {
+    // #swagger.security = [{ "bearerAuth": [] }]
     try { 
         const especialidades = await prisma.especialidad.findMany({
             orderBy: { id: "asc" }
@@ -38,6 +47,8 @@ app.get("/api/specialties", async (req: Request, res: Response) => {
 
 app.use("/api", patientRouter);
 app.use("/api",doctorRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/docs", swaggerRouter)
 
 
 app.listen(PORT, () => {
