@@ -21,4 +21,10 @@ export const DoctorModel = {
        }
     });
    },
+
+   async findById(id: number) {
+    return await prisma.medico.findUnique({
+        where: { id }
+    });
+   },
 };

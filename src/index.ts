@@ -8,6 +8,7 @@ import { authorize } from "./middlewares/authorize.middleware.js";
 import { verifyToken } from "./middlewares/auth.middleware.js";
 import authRouter from "./routes/auth.routes.js";
 import swaggerRouter from "./routes/swagger.routes.js"
+import appointmentRouter from "./routes/appointment.routes.js";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000; 
@@ -48,7 +49,8 @@ app.get(
 app.use("/api", patientRouter);
 app.use("/api",doctorRouter);
 app.use("/api/auth", authRouter);
-app.use("/api/docs", swaggerRouter)
+app.use("/api/docs", swaggerRouter);
+app.use("/api", appointmentRouter);
 
 
 app.listen(PORT, () => {
