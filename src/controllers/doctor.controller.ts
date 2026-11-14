@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import { DoctorModel } from "../models/doctor.model.js";
-import { spec } from "node:test/reporters";
 
 export async function getDoctors(req: Request, res: Response) {
     const specialty = req.query.specialty;
