@@ -1,6 +1,4 @@
-import { REFUSED } from "node:dns";
 import { prisma } from "../config/prisma.js";
-import { getDoctors } from "../controllers/doctor.controller.js";
 import type {
     CreateAppointmentInput
 } from "../middlewares/validate-appointment.js";

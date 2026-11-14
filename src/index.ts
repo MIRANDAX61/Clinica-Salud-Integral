@@ -9,6 +9,7 @@ import { verifyToken } from "./middlewares/auth.middleware.js";
 import authRouter from "./routes/auth.routes.js";
 import swaggerRouter from "./routes/swagger.routes.js"
 import appointmentRouter from "./routes/appointment.routes.js";
+import reportRouter from "./routes/report.routes.js"
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000; 
@@ -31,6 +32,8 @@ app.get(
     authorize("RECEPCIONISTA"),
     async (req: Request, res: Response) => {
     // #swagger.security = [{ "bearerAuth": [] }]
+    // #swagger.tags = ['Especialidades']
+    // #swagger.summary = 'Consultar especialidades — RECEPCIONISTA'
     try { 
         const especialidades = await prisma.especialidad.findMany({
             orderBy: { id: "asc" }
@@ -51,6 +54,7 @@ app.use("/api",doctorRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/docs", swaggerRouter);
 app.use("/api", appointmentRouter);
+app.use("/api", reportRouter);
 
 
 app.listen(PORT, () => {

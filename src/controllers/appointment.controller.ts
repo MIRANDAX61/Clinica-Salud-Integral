@@ -194,6 +194,17 @@ export async function getDoctorAgenda(req: Request, res: Response) {
 }
 
 export async function updateAppointmentStatus(
+    req: Request,
+    res: Response
+) {
+    const id = Number(req.params.id);
+
+    if (!Number.isSafeInteger(id) || id <= 0) {
+        res.status(400).json({
+            error: "El ID de la cita debe ser un entero positivo"
+        });
+        return;
+    }
 // #swagger.tags = ['Citas']
 // #swagger.summary = 'Actualizar estado de una cita — MEDICO'
 // #swagger.security = [{ "bearerAuth": [] }]
@@ -247,18 +258,6 @@ export async function updateAppointmentStatus(
 /* #swagger.responses[500] = {
   description: 'Error interno del servidor.'
 } */
-    req: Request,
-    res: Response
-) {
-    const id = Number(req.params.id);
-
-    if (!Number.isSafeInteger(id) || id <= 0) {
-        res.status(400).json({
-            error: "El ID de la cita debe ser un entero positivo"
-        });
-        return;
-    }
-
     try {
         const cita = await AppointmentModel.updateStatus(
             id,
