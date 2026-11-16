@@ -41,7 +41,7 @@ export async function getPatientById(req: Request, res: Response) {
     in: 'path',
     required: true,
     description: 'ID del paciente.',
-    schema: { type: 'integer', minimum: 1 }
+    '@schema': { type: 'integer', minimum: 1 }
     } */
 
     /* #swagger.responses[200] = {
