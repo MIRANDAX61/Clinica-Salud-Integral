@@ -49,7 +49,7 @@ export async function getDailyCutoff(req: Request, res: Response) {
   in: 'query',
   required: true,
   description: 'Día de las citas en horario de Bolivia.',
-  schema: {
+  '@schema': {
     type: 'string',
     format: 'date'
   }

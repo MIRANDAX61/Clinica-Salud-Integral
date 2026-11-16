@@ -96,21 +96,21 @@ export async function getDoctorAgenda(req: Request, res: Response) {
   in: 'path',
   required: true,
   description: 'ID del médico.',
-  schema: { type: 'integer', minimum: 1 }
+  '@schema': { type: 'integer', minimum: 1 }
 } */
 
 /* #swagger.parameters['from'] = {
   in: 'query',
   required: false,
   description: 'Día inicial. Enviar junto con to.',
-  schema: { type: 'string', format: 'date' }
+  '@schema': { type: 'string', format: 'date' }
 } */
 
 /* #swagger.parameters['to'] = {
   in: 'query',
   required: false,
   description: 'Día final incluido, en horario de Bolivia.',
-  schema: { type: 'string', format: 'date' }
+  '@schema': { type: 'string', format: 'date' }
 } */
 
 /* #swagger.responses[200] = {
@@ -213,7 +213,7 @@ export async function updateAppointmentStatus(
   in: 'path',
   required: true,
   description: 'ID de la cita.',
-  schema: { type: 'integer', minimum: 1 }
+  '@schema': { type: 'integer', minimum: 1 }
 } */
 
 /* #swagger.requestBody = {

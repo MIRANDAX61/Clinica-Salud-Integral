@@ -10,7 +10,7 @@ export async function getDoctors(req: Request, res: Response) {
     in: 'query',
     required: false,
     description: 'Nombre completo de la especialidad, sin distinguir mayúsculas.',
-    schema: {
+    '@schema': {
         type: 'string',
         example: 'Pediatría'
     }

@@ -167,17 +167,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "integer"
-                },
-                "minimum": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
+              "type": "integer",
+              "minimum": 1
             },
             "description": "ID del paciente."
           }
@@ -211,33 +202,45 @@
     },
     "/api/doctors": {
       "get": {
+        "tags": [
+          "Médicos"
+        ],
+        "summary": "Consultar médicos por especialidad — RECEPCIONISTA",
         "description": "",
         "parameters": [
           {
             "name": "specialty",
             "in": "query",
+            "required": false,
+            "description": "Nombre completo de la especialidad, sin distinguir mayúsculas.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "Pediatría"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de médicos con los datos de su especialidad."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Filtro de especialidad inválido."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "Token ausente, inválido o expirado."
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Se requiere el rol RECEPCIONISTA."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error al consultar médicos."
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/auth/register": {
@@ -435,17 +438,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "integer"
-                },
-                "minimum": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
+              "type": "integer",
+              "minimum": 1
             },
             "description": "ID del médico."
           },
@@ -455,17 +449,8 @@
             "required": false,
             "description": "Día inicial. Enviar junto con to.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                },
-                "format": {
-                  "type": "string",
-                  "example": "date"
-                }
-              }
+              "type": "string",
+              "format": "date"
             }
           },
           {
@@ -474,17 +459,8 @@
             "required": false,
             "description": "Día final incluido, en horario de Bolivia.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                },
-                "format": {
-                  "type": "string",
-                  "example": "date"
-                }
-              }
+              "type": "string",
+              "format": "date"
             }
           }
         ],
@@ -528,17 +504,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "integer"
-                },
-                "minimum": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
+              "type": "integer",
+              "minimum": 1
             },
             "description": "ID de la cita."
           }
@@ -637,17 +604,8 @@
             "required": true,
             "description": "Día de las citas en horario de Bolivia.",
             "schema": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                },
-                "format": {
-                  "type": "string",
-                  "example": "date"
-                }
-              }
+              "type": "string",
+              "format": "date"
             }
           }
         ],
